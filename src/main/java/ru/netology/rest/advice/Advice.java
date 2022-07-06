@@ -1,11 +1,16 @@
 package ru.netology.rest.advice;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import ru.netology.rest.exceptions.InvalidCredentials;
 import ru.netology.rest.exceptions.UnauthorizedUser;
+
+import javax.validation.ConstraintViolationException;
 
 @RestControllerAdvice ("ru.netology.rest")
 public class Advice {
@@ -22,4 +27,6 @@ public class Advice {
         System.out.println("Error " + HttpStatus.UNAUTHORIZED +": "+ ex.getMessage());
         return "Error " + HttpStatus.UNAUTHORIZED +": "+ ex.getMessage();
     }
+
+
 }
