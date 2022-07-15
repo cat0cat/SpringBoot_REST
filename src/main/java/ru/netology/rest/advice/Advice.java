@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import ru.netology.rest.exceptions.InvalidCredentials;
 import ru.netology.rest.exceptions.UnauthorizedUser;
 
+import javax.validation.ConstraintViolationException;
+
 @RestControllerAdvice ("ru.netology.rest")
 public class Advice {
 
@@ -21,5 +23,11 @@ public class Advice {
     public String HandleUnauthorizedUser (UnauthorizedUser ex) {
         System.out.println("Error " + HttpStatus.UNAUTHORIZED +": "+ ex.getMessage());
         return "Error " + HttpStatus.UNAUTHORIZED +": "+ ex.getMessage();
+    }
+
+    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(ConstraintViolationException.class)
+    String resolveException (ConstraintViolationException ex) {
+        return ex.getMessage();
     }
 }
